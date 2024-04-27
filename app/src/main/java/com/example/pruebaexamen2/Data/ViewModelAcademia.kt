@@ -28,8 +28,14 @@ class ViewModelAcademia: ViewModel() {
         if(!"".equals(horasIntroducidas)){
             horas = horasIntroducidas.toInt()
         }
-        asignatura.recuentoHoras += horas
-        textoUltAccionAct = "Se han añadido ${horas} horas de la asignatura ${asignatura.nombre} con precio ${asignatura.precioHora} €."
+
+        if(horas > 0){
+            asignatura.recuentoHoras += horas
+            textoUltAccionAct = "Se han añadido ${horas} horas de la asignatura ${asignatura.nombre} con precio ${asignatura.precioHora} €."
+        }else if(horas == 0){
+            textoUltAccionAct =
+                "No se ha sumado ningún valor."
+        }
 
         for (asig in asignaturas){
             if(asig.recuentoHoras > 0){
@@ -55,8 +61,9 @@ class ViewModelAcademia: ViewModel() {
 
         if(horas > 0){
             if(asignatura.recuentoHoras < horas){
+                var horas2 = asignatura.recuentoHoras
                 asignatura.recuentoHoras = 0
-                textoUltAccionAct = "Se han eliminado ${horas} horas de la asignatura ${asignatura.nombre} con precio ${asignatura.precioHora} €."
+                        textoUltAccionAct = "Se han eliminado ${horas2} horas de la asignatura ${asignatura.nombre} con precio ${asignatura.precioHora} €."
             }else if(asignatura.recuentoHoras > 0) {
                 asignatura.recuentoHoras -= horas
                 textoUltAccionAct =

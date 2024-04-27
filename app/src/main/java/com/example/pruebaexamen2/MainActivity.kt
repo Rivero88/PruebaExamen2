@@ -93,10 +93,12 @@ fun PantallaAsignaturas(modifier: Modifier = Modifier, asignaturas: ArrayList<As
                             .padding(10.dp),
                         textAlign = TextAlign.Center)
                     Row (modifier.align(Alignment.CenterHorizontally)){
-                        Button(onClick = { viewModel.sumarHoras(asignatura,viewModel.introducirHoras, asignaturas) }) {
+                        Button(onClick = { viewModel.sumarHoras(asignatura,viewModel.introducirHoras, asignaturas) },
+                            modifier.padding(6.dp)) {
                             Text(text = "+")
                         }
-                        Button(onClick = { viewModel.restarHoras(asignatura,viewModel.introducirHoras,asignaturas) }) {
+                        Button(onClick = { viewModel.restarHoras(asignatura,viewModel.introducirHoras,asignaturas) },
+                            modifier.padding(6.dp)) {
                             Text(text = "-")
                         }
                     }
