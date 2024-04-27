@@ -46,8 +46,8 @@ class ViewModelAcademia: ViewModel() {
     }
     fun restarHoras(asignatura: Asignatura, horasRestar: String, asignaturas: ArrayList<Asignatura>){
         var horas = 1
-        var textoUltAccionAct: String = ""
-        var textoResumenAct: String = ""
+        var textoUltAccionAct = ""
+        var textoResumenAct = ""
 
         if(!"".equals(horasRestar)){
             horas = horasRestar.toInt()
@@ -77,9 +77,9 @@ class ViewModelAcademia: ViewModel() {
         }
 
         _uiState.update {
-                actualizacionTexto -> actualizacionTexto.copy(
-            textoUltAccion=textoUltAccionAct,
-            textoResumen=textoResumenAct
+            actualizacionTexto -> actualizacionTexto.copy(
+                textoUltAccion=textoUltAccionAct,
+                textoResumen=textoResumenAct
         )
         }
     }

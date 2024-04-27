@@ -49,49 +49,50 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    pantallaPrincipal(asignaturas=DataSource.asignaturas, viewModel= viewModel())
+                    PantallaPrincipal(asignaturas=DataSource.asignaturas, viewModel= viewModel())
                 }
             }
         }
     }
 }
 @Composable
-fun pantallaPrincipal(modifier: Modifier = Modifier ,asignaturas: ArrayList<Asignatura>, viewModel: ViewModelAcademia){
+fun PantallaPrincipal(modifier: Modifier = Modifier ,asignaturas: ArrayList<Asignatura>,
+                      viewModel: ViewModelAcademia){
     val uiState by viewModel.uiState.collectAsState()
     Column (modifier){
-        Text(text = "Bienvenid@ Academia", modifier = Modifier
+        Text(text = "Bienvenid@ Academia", modifier
             .fillMaxWidth()
             .background(Color.LightGray)
             .padding(start = 30.dp, top = 25.dp))
-        pantallaAsignaturas(Modifier, DataSource.asignaturas,
+        PantallaAsignaturas(modifier, DataSource.asignaturas,
             viewModel)
-        cuadroTextField(Modifier, viewModel)
-        cuadroTextoInferior(Modifier, uiState)
+        CuadroTextField(viewModel)
+        CuadroTextoInferior(modifier, uiState)
     }
 }
 
 @Composable
-fun pantallaAsignaturas(modifier: Modifier = Modifier, asignaturas: ArrayList<Asignatura>,
+fun PantallaAsignaturas(modifier: Modifier = Modifier, asignaturas: ArrayList<Asignatura>,
                         viewModel: ViewModelAcademia){
-    Column(modifier = modifier.height(300.dp)) {
+    Column(modifier.height(300.dp)) {
         LazyVerticalGrid(columns = GridCells.Fixed(2),
             verticalArrangement = Arrangement.Center,
             horizontalArrangement = Arrangement.Center){
             items(asignaturas){ asignatura ->
-                Card(modifier = modifier.padding(8.dp)) {
+                Card(modifier.padding(8.dp)) {
                     Text(text = "Asig.: ${asignatura.nombre}",
-                        modifier = Modifier
+                        modifier
                             .fillMaxWidth()
                             .background(Color.Yellow)
                             .padding(10.dp),
                         textAlign = TextAlign.Center)
                     Text(text = "€/hora: ${asignatura.precioHora}",
-                        modifier= Modifier
+                        modifier
                             .fillMaxWidth()
                             .background(Color.Cyan)
                             .padding(10.dp),
                         textAlign = TextAlign.Center)
-                    Row (modifier=modifier.align(Alignment.CenterHorizontally)){
+                    Row (modifier.align(Alignment.CenterHorizontally)){
                         Button(onClick = { viewModel.sumarHoras(asignatura,viewModel.introducirHoras, asignaturas) }) {
                             Text(text = "+")
                         }
@@ -107,7 +108,7 @@ fun pantallaAsignaturas(modifier: Modifier = Modifier, asignaturas: ArrayList<As
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun cuadroTextField(modifier: Modifier = Modifier, viewModel: ViewModelAcademia){
+fun CuadroTextField(viewModel: ViewModelAcademia){
     TextField(value = viewModel.introducirHoras ,
         onValueChange = { viewModel.nuevoValorHoras(it) },
         label = { Text(text = "Horas a contratar o eliminar.") },
@@ -115,24 +116,24 @@ fun cuadroTextField(modifier: Modifier = Modifier, viewModel: ViewModelAcademia)
             keyboardType = KeyboardType.Number,
             imeAction = ImeAction.Next
         ),
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth()
             .padding(20.dp)
     )
 }
 
 @Composable
-fun cuadroTextoInferior(modifier: Modifier = Modifier, uiState: UiStateAcademia){
-    Column (modifier = Modifier
+fun CuadroTextoInferior(modifier: Modifier = Modifier, uiState: UiStateAcademia){
+    Column (modifier
         .fillMaxWidth()
         .background(Color.LightGray)
         .padding(10.dp)) {
         Text(text = "Última acción: \n${uiState.textoUltAccion}",
-            modifier = Modifier
+            modifier
                 .fillMaxWidth()
                 .background(Color.Magenta))
         Text(text = "Resumen: \n${uiState.textoResumen}",
-            modifier = Modifier
+            modifier
                 .fillMaxWidth()
                 .background(Color.White))
     }
